@@ -1,3 +1,92 @@
+2012-07-12  Dan Fandrich <dan@coneharvesters.com>
+
+	* Fixed some buffer overflows in exif_entry_format_value()
+	  This fixes CVE-2012-2814.  Reported by Mateusz Jurczyk of
+	  Google Security Team
+	* Fixed an off-by-one error in exif_convert_utf16_to_utf8()
+	  This can cause a one-byte NUL write past the end of the buffer.
+	  This fixes CVE-2012-2840
+	* Don't read past the end of a tag when converting from UTF-16
+	  This fixes CVE-2012-2813. Reported by Mateusz Jurczyk of
+	  Google Security Team
+	* Fixed an out of bounds read on corrupted input
+	  The EXIF_TAG_COPYRIGHT tag ought to be, but perhaps is not,
+	  NUL-terminated.
+	  This fixes CVE-2012-2812. Reported by Mateusz Jurczyk of
+	  Google Security Team
+	* Fixed a buffer overflow problem in exif_entry_get_value
+	  If the application passed in a buffer length of 0, then it would
+	  be treated as the buffer had unlimited length.
+	  This fixes CVE-2012-2841
+	* Fix a buffer overflow on corrupt EXIF data.
+	  This fixes bug #3434540 and fixes part of CVE-2012-2836
+	  Reported by Yunho Kim
+	* Fix a buffer overflow on corrupted JPEG data
+	  An unsigned data length might wrap around when decremented
+	  below zero, bypassing sanity checks on length.
+	  This code path can probably only occur if exif_data_load_data()
+	  is called directly by the application on data that wasn't parsed
+	  by libexif itself.
+	  This solves the other part of CVE-2012-2836
+	* Fixed some possible division-by-zeros in Olympus-style makernotes
+	  This fixes bug #3434545, a.k.a. CVE-2012-2837
+	  Reported by Yunho Kim
+	* Released 0.6.21
+
+2012-07-09  Dan Fandrich <dan@coneharvesters.com>
+
+	* po/da.po: Updated Danish translation by Joe Hansen
+	* po/de.po: Updated German translation by Christian Kirbach
+	* po/pl.po: Updated Polish translation by Jakub Bogusz
+	* po/sk.po: Updated Slovak translation by Ivan Masár
+	* po/uk.po: Updated Ukrainian translation by Yuri Chornoivan
+	* po/vi.po: Updated Vietnamese translation by Trần Ngọc Quân
+	* Mention that uk.po must now be updated through translationproject.org
+
+2012-06-25  Dan Fandrich <dan@coneharvesters.com>
+
+	* Updated non-TP translations from launchpad.net's "precise"
+	  translations:
+	  be.po bs.po en_GB.po pt.po pt_BR.po ru.po sq.po sr.po tr.po zh_CN.po
+	* Added new translations from launchpad.net's "precise" translations:
+	* po/en_AU.po: Added English (Australian) translation by Joel Pickett
+	* po/uk.po: Added Ukrainian translation by Yuri Chornoivan
+	* po/bs.po: Removed some erroneous embedded \r\n in the translations
+	* Updated non-TP translations to the latest strings in the source code
+	* po/en_CA.po: Updated Canadian English translation
+
+2012-05-16  Dan Fandrich <dan@coneharvesters.com>
+
+	* po/vi.po: Updated Vietnamese translation by Trần Ngọc Quân
+
+2011-11-07  Dan Fandrich <dan@coneharvesters.com>
+
+	* po/de.po: Updated German translation by Christian Kirbach
+
+2011-08-26  Dan Fandrich <dan@coneharvesters.com>
+
+	* po/cs.po: Updated Czech translation by Jan Patera
+	* po/da.po: Updated Danish translation by Joe Hansen
+	* po/nl.po: Updated Dutch translation by Erwin Poeze
+	* po/pl.po: Updated Polish translation by Jakub Bogusz
+	* po/sk.po: Updated Slovak translation by Ivan Masár
+	* po/sv.po: Updated Swedish translation by Daniel Nylander
+
+2011-07-11  Dan Fandrich <dan@coneharvesters.com>
+
+	* Made mnote_fuji_tag_get_description and
+	  mnote_canon_tag_get_descripton more robust should any NULL
+	  descriptions be added to the table (bug #3307219)
+
+2011-05-12  Dan Fandrich <dan@coneharvesters.com>
+
+	* Added more Canon lenses (from Adrian von Bidder and drochner)
+
+2011-02-16  Dan Fandrich <dan@coneharvesters.com>
+
+	* Changed "knots" to more clear "nautical miles" (Ubuntu Launchpad bug
+	  https://bugs.launchpad.net/bugs/712115 reported by Daniel Thibault).
+
 2010-12-15  Dan Fandrich <dan@coneharvesters.com>
 
 	* Released 0.6.20
